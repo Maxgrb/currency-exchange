@@ -12,9 +12,10 @@ const actionTypes = {
   RATES_REQUEST: 'App/RATES_REQUEST',
   RATES_SUCCESS: 'App/RATES_SUCCESS',
   RATES_FAILURE: 'App/RATES_FAILURE',
-  SOURCE_CHANGE: 'App/SOURCE_CHANGE',
-  TARGET_CHANGE: 'App/TARGET_CHANGE',
-  CURRENCY_CHANGE: 'App/CURRENCY_CHANGE',
+  SOURCE_VALUE_CHANGE: 'App/SOURCE_VALUE_CHANGE',
+  TARGET_VALUE_CHANGE: 'App/TARGET_VALUE_CHANGE',
+  SOURCE_CURRENCY_CHANGE: 'App/SOURCE_CURRENCY_CHANGE',
+  TARGET_CURRENCY_CHANGE: 'App/TARGET_CURRENCY_CHANGE',
   EXCHANGE: 'App/EXCHANGE',
 };
 
@@ -53,18 +54,23 @@ export const actions = {
     type: actionTypes.RATES_FAILURE,
   }),
 
-  changeSource: value => ({
-    type: actionTypes.SOURCE_CHANGE,
+  changeSourceValue: value => ({
+    type: actionTypes.SOURCE_VALUE_CHANGE,
     value,
   }),
 
-  changeTarget: value => ({
-    type: actionTypes.TARGET_CHANGE,
+  changeTargetValue: value => ({
+    type: actionTypes.TARGET_VALUE_CHANGE,
     value,
   }),
 
-  changeCurrency: () => ({
-    type: actionTypes.CURRENCY_CHANGE,
+  changeSourceCurrency: () => ({
+    type: actionTypes.SOURCE_CURRENCY_CHANGE,
+  }),
+
+  changeTargetCurrency: value => ({
+    type: actionTypes.TARGET_CURRENCY_CHANGE,
+    value,
   }),
 
   exchange: () => ({
@@ -95,7 +101,7 @@ export const reducers = (state = initialState, action) => {
         isError: true,
       };
 
-    case actionTypes.SOURCE_CHANGE:
+    case actionTypes.SOURCE_VALUE_CHANGE:
       return {
         ...state,
         inputValues: {
@@ -105,7 +111,7 @@ export const reducers = (state = initialState, action) => {
         },
       };
 
-    case actionTypes.TARGET_CHANGE:
+    case actionTypes.TARGET_VALUE_CHANGE:
       return {
         ...state,
         inputValues: {
@@ -115,9 +121,15 @@ export const reducers = (state = initialState, action) => {
         },
       };
 
-    case actionTypes.CURRENCY_CHANGE:
+    case actionTypes.SOURCE_CURRENCY_CHANGE:
       return {
         ...state,
+      };
+
+    case actionTypes.TARGET_CURRENCY_CHANGE:
+      return {
+        ...state,
+        inputTarget: action.value,
       };
 
     case actionTypes.EXCHANGE:

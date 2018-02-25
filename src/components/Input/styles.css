@@ -12,12 +12,6 @@
     clear: both;
   }
 
-  &Name {
-    font-size: 2em;
-    font-weight: 300;
-    user-select: none;
-  }
-
   &Balance {
     margin-top: 10px;
     font-size: 0.75em;
@@ -26,12 +20,24 @@
   }
 
   input {
+    z-index: 2;
+    position: relative;
     float: right;
     font-size: 32px;
     font-weight: 300;
-    padding: 0;
+    min-width: 70%;
+    padding: 50px 0;
+    margin-top: -50px;
     margin-left: auto;
     text-align: right;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
   }
 
   &Target::before {

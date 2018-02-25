@@ -1,0 +1,85 @@
+/**
+ * Dropdown Styles
+ */
+.dropdown {
+  z-index: 1;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownButton {
+  font-size: 2em;
+  font-weight: 300;
+  user-select: none;
+  position: relative;
+  cursor: pointer;
+  padding: 0 20px 0 0;
+  text-align: left;
+  white-space: nowrap;
+
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    transition: transform 0.2s;
+    background: url('./assets/icn-dropdown-arrow.svg') 50% 50% no-repeat;
+    .on & { transform: scaleY(-1); }
+  }
+}
+
+.dropdownBody {
+  z-index: 100;
+  position: absolute;
+  left: -10px;
+  max-height: 400px;
+  background: #fff;
+  margin-top: 5px;
+  transform-origin: 50% 0;
+  animation: dropdownBody 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: 4px;
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.08), 0 0.5rem 0.75rem rgba(0, 0, 0, 0.14);
+}
+
+.dropdownBody button {
+  width: 100%;
+  min-width: 150px;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  text-align: left;
+  background-position: 15px 50%;
+  background-repeat: no-repeat;
+  font-size: 1.2em;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:first-child { margin-top: 5px; }
+  &:last-child { margin-bottom: 5px; }
+  &:hover { background-color: #f4f5f7; }
+}
+
+@keyframes dropdownBody {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+

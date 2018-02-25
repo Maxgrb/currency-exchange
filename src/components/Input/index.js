@@ -3,8 +3,9 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Dropdown } from '../../components';
+import { currencies, currenciesSymbols } from '../../constants';
 import styles from './styles.css';
-
 
 const handleInput = onChange => (e) => {
   const { value } = e.target;
@@ -28,24 +29,26 @@ const Input = props => (
       step="0.01"
       autoFocus={!props.isTarget}
       value={props.value}
-      onChange={handleInput(props.onChange)}
+      onChange={handleInput(props.onChangeValue)}
     />
-    <div className={styles.inputName}>
-      {props.name}
-    </div>
+    <Dropdown
+      current={props.currency}
+      options={currencies}
+      onChange={props.onChangeCurrency}
+    />
     <div className={styles.inputBalance}>
-      {`Balance: ${props.symbol}`}&thinsp;{props.balance.toLocaleString()}
+      {`Balance: ${currenciesSymbols[props.currency]}`}&thinsp;{props.balance.toLocaleString()}
     </div>
   </div >
 );
 /* eslint-enable jsx-a11y/no-autofocus */
 
 Input.propTypes = {
-  name: PropTypes.string.isRequired,
-  symbol: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   balance: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChangeValue: PropTypes.func.isRequired,
+  onChangeCurrency: PropTypes.func.isRequired,
   isTarget: PropTypes.bool,
 };
 

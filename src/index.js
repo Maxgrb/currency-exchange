@@ -47,8 +47,10 @@ class App extends Component {
       rates,
       balance,
       inputValues,
-      changeSource,
-      changeTarget,
+      changeSourceValue,
+      changeTargetValue,
+      changeSourceCurrency,
+      changeTargetCurrency,
       exchange,
     } = this.props;
 
@@ -70,11 +72,11 @@ class App extends Component {
           :
           <Fragment>
             <Input
-              name={currencies[source]}
-              symbol={currenciesSymbols[source]}
+              currency={currencies[source]}
               balance={balance[source]}
               value={inputValues[source]}
-              onChange={changeSource}
+              onChangeValue={changeSourceValue}
+              onChangeCurrency={changeSourceCurrency}
             />
             <RateLabel
               sourceSymbol={currenciesSymbols[source]}
@@ -83,11 +85,11 @@ class App extends Component {
             />
             <Input
               isTarget
-              name={currencies[target]}
-              symbol={currenciesSymbols[target]}
+              currency={currencies[target]}
               balance={balance[target]}
               value={inputValues[target]}
-              onChange={changeTarget}
+              onChangeValue={changeTargetValue}
+              onChangeCurrency={changeTargetCurrency}
             />
             <ExchangeButton
               onClick={exchange}
