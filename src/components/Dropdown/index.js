@@ -19,7 +19,7 @@ class Dropdown extends Component {
 
   get body() {
     return (
-      <div className={styles.dropdownBody}>
+      <div className={styles.body}>
         {Object.keys(this.props.options)
           .filter(key => key !== this.props.current)
           .map(key =>
@@ -50,7 +50,7 @@ class Dropdown extends Component {
       <div className={styles.dropdown}>
         <button
           type="button"
-          className={styles.dropdownButton}
+          className={styles.button}
           onClick={this.toggle}
         >
           {this.props.current}

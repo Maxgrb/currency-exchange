@@ -8,7 +8,7 @@ import styles from './styles.css';
 const ExchangeButton = ({ disabled, onClick }) => (
   <button
     type="button"
-    className={styles.exchangeButton}
+    className={styles.button}
     aria-label="Exchange"
     disabled={disabled}
     onClick={onClick}

@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import styles from './styles.css';
 
 const RateLabel = props => (
-  <div className={styles.rateLabel}>
-    <div className={styles.rateLabelInner}>
+  <div className={styles.label}>
+    <div className={styles.inner}>
       {`${props.sourceSymbol}1 = ${props.targetSymbol}${props.rate.toFixed(2)}`}
     </div>
   </div>

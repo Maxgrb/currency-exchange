@@ -1,11 +1,11 @@
 /**
  * RateLabel Styles
  */
-.rateLabel {
+.label {
   display: block;
   text-align: center;
 
-  &Inner {
+  .inner {
     z-index: 2;
     position: relative;
     display: inline-block;

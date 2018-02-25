@@ -6,7 +6,8 @@ import React, { Component, Fragment } from 'react';
 import { render } from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
-import store, { actions } from './store';
+import store from './store';
+import * as actions from './actions';
 import { currencies, currenciesSymbols } from './constants';
 import { ErrorMessage, ExchangeButton, Input, RateLabel } from './components';
 import styles from './styles.css';
@@ -26,9 +27,9 @@ class App extends Component {
 
   update = () => {
     if (!this.props.isRequest) {
-      this.props.fetchRates();
+      this.props.updateRates();
     }
-    // this.requestInterval = setInterval(this.update, 10000);
+    this.requestInterval = setInterval(this.update, 10000);
   }
 
   handleKeyDown = (e) => {
@@ -42,11 +43,12 @@ class App extends Component {
     const {
       isRequest,
       isError,
-      inputSource: source,
-      inputTarget: target,
       rates,
       balance,
-      inputValues,
+      source,
+      target,
+      sourceValue,
+      targetValue,
       changeSourceValue,
       changeTargetValue,
       changeSourceCurrency,
@@ -55,9 +57,10 @@ class App extends Component {
     } = this.props;
 
     const isButtonDisabled = (
-      inputValues[source] === 0 ||
-      inputValues[target] === 0 ||
-      inputValues[source] > balance[source] ||
+      source === target ||
+      sourceValue === 0 ||
+      targetValue === 0 ||
+      sourceValue > balance[source] ||
       isRequest
     );
 
@@ -74,7 +77,7 @@ class App extends Component {
             <Input
               currency={currencies[source]}
               balance={balance[source]}
-              value={inputValues[source]}
+              value={sourceValue}
               onChangeValue={changeSourceValue}
               onChangeCurrency={changeSourceCurrency}
             />
@@ -88,7 +91,7 @@ class App extends Component {
               isTarget
               currency={currencies[target]}
               balance={balance[target]}
-              value={inputValues[target]}
+              value={targetValue}
               onChangeValue={changeTargetValue}
               onChangeCurrency={changeTargetCurrency}
             />

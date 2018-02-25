@@ -1,7 +1,6 @@
 /**
  * Input Styles
  */
-
 .input {
   display: block;
   white-space: nowrap;
@@ -12,17 +11,6 @@
     clear: both;
   }
 
-  &Balance {
-    margin-top: 10px;
-    font-size: 0.75em;
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.4);
-  }
-
-  &Balance.warn {
-    color: #eb028c;
-  }
-
   input {
     z-index: 2;
     position: relative;
@@ -30,8 +18,9 @@
     font-size: 32px;
     font-weight: 300;
     min-width: 70%;
+    max-width: 70%;
     padding: 50px 0;
-    margin-top: -50px;
+    margin-top: -30px;
     margin-left: auto;
     text-align: right;
     border: 0;
@@ -44,7 +33,7 @@
     }
   }
 
-  &Target::before {
+  &.target::before {
     z-index: -1;
     content: '';
     position: absolute;

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown } from '../../components';
+import { Balance, Dropdown } from '../../components';
 import { currencies, currenciesSymbols } from '../../constants';
 import styles from './styles.css';
 
@@ -21,8 +21,7 @@ const handleInput = onChange => (e) => {
 
 /* eslint-disable jsx-a11y/no-autofocus */
 const Input = (props) => {
-  const mainStyle = `${styles.input} ${props.isTarget ? styles.inputTarget : ''}`;
-  const balanceStyle = `${styles.inputBalance} ${!props.isTarget && props.value > props.balance ? styles.warn : ''}`;
+  const mainStyle = `${styles.input} ${props.isTarget ? styles.target : ''}`;
 
   return (
     <div className={mainStyle}>
@@ -38,9 +37,11 @@ const Input = (props) => {
         options={currencies}
         onChange={props.onChangeCurrency}
       />
-      <div className={balanceStyle} >
-        {`Balance: ${currenciesSymbols[props.currency]}`}&thinsp;{props.balance.toLocaleString()}
-      </div>
+      <Balance
+        balance={props.balance}
+        symbol={currenciesSymbols[props.currency]}
+        isDanger={!props.isTarget && props.value > props.balance}
+      />
     </div>
   );
 };

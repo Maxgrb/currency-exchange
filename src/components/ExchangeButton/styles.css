@@ -2,7 +2,7 @@
  * ButtonExchange Styles
  */
 
-.exchangeButton {
+.button {
   display: block;
   text-align: center;
   margin: 0 auto;
@@ -14,6 +14,8 @@
   background-color: #eb028c;
   font-size: 1em;
   user-select: none;
+  transition-property: background-color, opacity;
+  transition-duration: 0.15s;
 
   &:disabled {
     opacity: 0.4;

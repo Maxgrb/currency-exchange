@@ -1,14 +1,13 @@
 /**
  * Redux stuff
- * Contains actions, reducers and store object with thunk and debug tool.
+ * Contains actions types, actions, reducers, and store object with thunk and debug tool.
  * We put all together into the single file because of small state of the app.
  */
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { currencies } from './constants';
-import getRates from './services';
 
-const actionTypes = {
+export const types = {
   RATES_REQUEST: 'App/RATES_REQUEST',
   RATES_SUCCESS: 'App/RATES_SUCCESS',
   RATES_FAILURE: 'App/RATES_FAILURE',
@@ -27,125 +26,75 @@ const initialState = {
     [currencies.EUR]: 340,
     [currencies.USD]: 560,
   },
-  inputValues: {
-    [currencies.GBP]: 0,
-    [currencies.EUR]: 0,
-    [currencies.USD]: 0,
-  },
-  inputSource: currencies.GBP,
-  inputTarget: currencies.EUR,
-};
-
-export const actions = {
-  fetchRates: () => (dispatch, getState) => {
-    const { inputSource } = getState();
-    dispatch({ type: actionTypes.RATES_REQUEST });
-    return getRates(inputSource)
-      .then(rates => dispatch({
-        type: actionTypes.RATES_SUCCESS,
-        rates,
-      }))
-      .catch(() => dispatch({
-        type: actionTypes.RATES_FAILURE,
-      }));
-  },
-
-  handleError: () => ({
-    type: actionTypes.RATES_FAILURE,
-  }),
-
-  changeSourceValue: value => ({
-    type: actionTypes.SOURCE_VALUE_CHANGE,
-    value,
-  }),
-
-  changeTargetValue: value => ({
-    type: actionTypes.TARGET_VALUE_CHANGE,
-    value,
-  }),
-
-  changeSourceCurrency: () => ({
-    type: actionTypes.SOURCE_CURRENCY_CHANGE,
-  }),
-
-  changeTargetCurrency: value => ({
-    type: actionTypes.TARGET_CURRENCY_CHANGE,
-    value,
-  }),
-
-  exchange: () => ({
-    type: actionTypes.EXCHANGE,
-  }),
+  source: currencies.GBP,
+  sourceValue: 0,
+  target: currencies.EUR,
+  targetValue: 0,
 };
 
 export const reducers = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.RATES_REQUEST:
+    case types.RATES_REQUEST:
       return {
         ...state,
         isRequest: true,
         isError: false,
       };
 
-    case actionTypes.RATES_SUCCESS:
+    case types.RATES_SUCCESS:
       return {
         ...state,
         rates: action.rates,
         isRequest: false,
       };
 
-    case actionTypes.RATES_FAILURE:
+    case types.RATES_FAILURE:
       return {
         ...state,
         isRequest: false,
         isError: true,
       };
 
-    case actionTypes.SOURCE_VALUE_CHANGE:
+    case types.SOURCE_VALUE_CHANGE:
       return {
         ...state,
-        inputValues: {
-          ...state.inputValues,
-          [state.inputSource]: action.value,
-          [state.inputTarget]: Number((action.value * state.rates[state.inputTarget]).toFixed(2)),
-        },
+        sourceValue: action.value,
+        targetValue: Number((action.value * state.rates[state.target]).toFixed(2)),
       };
 
-    case actionTypes.TARGET_VALUE_CHANGE:
+    case types.TARGET_VALUE_CHANGE:
       return {
         ...state,
-        inputValues: {
-          ...state.inputValues,
-          [state.inputSource]: Number((action.value / state.rates[state.inputTarget]).toFixed(2)),
-          [state.inputTarget]: action.value,
-        },
+        sourceValue: Number((action.value / state.rates[state.target]).toFixed(2)),
+        targetValue: action.value,
       };
 
-    case actionTypes.SOURCE_CURRENCY_CHANGE:
+    case types.SOURCE_CURRENCY_CHANGE:
       return {
         ...state,
+        source: action.source,
+        sourceValue:
+          Number((state.targetValue * state.rates[action.source]).toFixed(2)),
       };
 
-    case actionTypes.TARGET_CURRENCY_CHANGE:
+    case types.TARGET_CURRENCY_CHANGE:
       return {
         ...state,
-        inputTarget: action.value,
+        target: action.target,
+        targetValue:
+          Number((state.sourceValue * state.rates[action.target]).toFixed(2)),
       };
 
-    case actionTypes.EXCHANGE:
+    case types.EXCHANGE:
       return {
         ...state,
         balance: {
-          [state.inputSource]:
-            state.balance[state.inputSource] - state.inputValues[state.inputSource],
-          [state.inputTarget]:
-            state.balance[state.inputTarget] + state.inputValues[state.inputTarget],
+          ...state.balance,
+          [state.source]: state.balance[state.source] - state.sourceValue,
+          [state.target]: state.balance[state.target] + state.targetValue,
         },
-        inputValues: {
-          ...state.inputValues,
-          [state.inputSource]: 0,
-          [state.inputTarget]: 0,
-        },
+        sourceValue: 0,
+        targetValue: 0,
       };
 
     default:

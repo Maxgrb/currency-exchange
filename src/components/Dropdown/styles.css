@@ -2,12 +2,13 @@
  * Dropdown Styles
  */
 .dropdown {
-  z-index: 1;
+  z-index: 10;
+  padding: 20px 0;
   position: relative;
   display: inline-block;
 }
 
-.dropdownButton {
+.button {
   font-size: 2em;
   font-weight: 300;
   user-select: none;
@@ -38,7 +39,7 @@
   }
 }
 
-.dropdownBody {
+.body {
   z-index: 100;
   position: absolute;
   left: -10px;
@@ -46,12 +47,12 @@
   background: #fff;
   margin-top: 5px;
   transform-origin: 50% 0;
-  animation: dropdownBody 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: body 0.2s cubic-bezier(0.23, 1, 0.32, 1);
   border-radius: 4px;
   box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.08), 0 0.5rem 0.75rem rgba(0, 0, 0, 0.14);
 }
 
-.dropdownBody button {
+.body button {
   width: 100%;
   min-width: 150px;
   padding: 10px 20px;
@@ -71,7 +72,7 @@
   &:hover { background-color: #f4f5f7; }
 }
 
-@keyframes dropdownBody {
+@keyframes body {
   0% {
     opacity: 0;
     transform: scaleY(0);
