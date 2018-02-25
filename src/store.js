@@ -101,7 +101,7 @@ export const reducers = (state = initialState, action) => {
         inputValues: {
           ...state.inputValues,
           [state.inputSource]: action.value,
-          [state.inputTarget]: action.value * state.rates[state.inputTarget],
+          [state.inputTarget]: Number((action.value * state.rates[state.inputTarget]).toFixed(2)),
         },
       };
 
@@ -110,7 +110,7 @@ export const reducers = (state = initialState, action) => {
         ...state,
         inputValues: {
           ...state.inputValues,
-          [state.inputSource]: action.value / state.rates[state.inputTarget],
+          [state.inputSource]: Number((action.value / state.rates[state.inputTarget]).toFixed(2)),
           [state.inputTarget]: action.value,
         },
       };

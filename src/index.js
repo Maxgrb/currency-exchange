@@ -31,9 +31,16 @@ class App extends Component {
     // this.requestInterval = setInterval(this.update, 10000);
   }
 
+  handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      this.props.exchange();
+    }
+  }
+
 
   render() {
     const {
+      isRequest,
       isError,
       inputSource: source,
       inputTarget: target,
@@ -48,11 +55,16 @@ class App extends Component {
     const isButtonDisabled = (
       inputValues[source] === 0 ||
       inputValues[target] === 0 ||
-      inputValues[source] > balance[source]
+      inputValues[source] > balance[source] ||
+      isRequest
     );
 
     return (
-      <div className={styles.app}>
+      <div
+        role="Application"
+        className={styles.app}
+        onKeyDown={!isButtonDisabled ? this.handleKeyDown : undefined}
+      >
         {isError ?
           <ErrorMessage />
           :
