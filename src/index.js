@@ -15,6 +15,7 @@ import styles from './styles.css';
 class App extends Component {
   componentDidMount() {
     this.update();
+    this.requestInterval = setInterval(this.update, 10000);
   }
 
   componentWillUnmount() {
@@ -29,7 +30,6 @@ class App extends Component {
     if (!this.props.isRequest) {
       this.props.updateRates();
     }
-    this.requestInterval = setInterval(this.update, 10000);
   }
 
   handleKeyDown = (e) => {
@@ -37,7 +37,6 @@ class App extends Component {
       this.props.exchange();
     }
   }
-
 
   render() {
     const {
