@@ -1,0 +1,39 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "env": {
+    "jest": true
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "navigator": true,
+    "node": true,
+    "fetch": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "no-console": 0,
+    "strict": 0,
+    "no-return-assign": 0,
+    "jsx-a11y/img-has-alt": 0,
+    "jsx-a11y/href-no-hash": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "react/prop-types": 0,
+    "react/forbid-prop-types": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-space-before-closing": 0,
+    "react/jsx-wrap-multilines": 0,
+    "no-param-reassign": [
+      2,
+      {
+        "props": false
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": "webpack"
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "name": "currency-exchange",
+  "version": "0.0.1",
+  "description": "A simple web app to exchange GBP, EUR, and USD.",
+  "main": "index.js",
+  "author": "Max Gorbachev <maxgorbs@gmail.com>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack-dev-server --d",
+    "build": "yarn && rimraf dist && NODE_ENV=production webpack -p --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:maxgrb/currency-exchange.git"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.40",
+    "@babel/polyfill": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "@babel/preset-react": "^7.0.0-beta.40",
+    "@babel/preset-stage-0": "^7.0.0-beta.40",
+    "autoprefixer": "^8.0.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^8.0.0-beta.0",
+    "browserslist": "^3.1.0",
+    "css-loader": "^0.28.9",
+    "eslint": "^4.18.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-import-resolver-webpack": "^0.8.4",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "html-webpack-plugin": "^2.30.1",
+    "postcss": "^6.0.19",
+    "postcss-import": "^11.1.0",
+    "postcss-import-webpack-resolver": "^1.0.1",
+    "postcss-loader": "^2.1.0",
+    "postcss-partial-import": "^4.1.0",
+    "precss": "^3.1.0",
+    "resolve-url-loader": "^2.2.1",
+    "rimraf": "^2.6.2",
+    "style-loader": "^0.20.2",
+    "stylelint": "^9.0.0",
+    "stylelint-config-standard": "^18.1.0",
+    "svg-url-loader": "^2.3.1",
+    "webpack": "^3.11.0",
+    "webpack-bundle-analyzer": "^2.10.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions"
+  ],
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ],
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current",
+            "useBuiltIns": "entry"
+          }
+        }
+      ],
+      "@babel/preset-stage-0",
+      "@babel/preset-react"
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "rule-empty-line-before": null,
+      "comment-empty-line-before": null,
+      "at-rule-empty-line-before": null,
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": [
+            "composes",
+            "compose-with"
+          ]
+        }
+      ],
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          "ignorePseudoClasses": [
+            "export",
+            "import",
+            "global",
+            "local"
+          ]
+        }
+      ],
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "value"
+          ]
+        }
+      ]
+    }
+  }
+}
