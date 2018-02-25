@@ -15,7 +15,11 @@
   font-size: 1em;
   user-select: none;
 
-  &:hover {
+  &:disabled {
+    opacity: 0.4;
+  }
+
+  &:hover:not([disabled]) {
     cursor: pointer;
     background-color: #e00086;
   }

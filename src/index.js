@@ -28,8 +28,9 @@ class App extends Component {
     if (!this.props.isRequest) {
       this.props.fetchRates();
     }
-    this.requestInterval = setInterval(this.update, 10000);
+    // this.requestInterval = setInterval(this.update, 10000);
   }
+
 
   render() {
     const {
@@ -39,13 +40,15 @@ class App extends Component {
       rates,
       balance,
       inputValues,
-      changeInput,
+      changeSource,
+      changeTarget,
       exchange,
     } = this.props;
 
     const isButtonDisabled = (
       inputValues[source] === 0 ||
-      inputValues[target] === 0
+      inputValues[target] === 0 ||
+      inputValues[source] > balance[source]
     );
 
     return (
@@ -59,7 +62,7 @@ class App extends Component {
               symbol={currenciesSymbols[source]}
               balance={balance[source]}
               value={inputValues[source]}
-              onChange={value => changeInput({ [source]: value })}
+              onChange={changeSource}
             />
             <RateLabel
               sourceSymbol={currenciesSymbols[source]}
@@ -72,7 +75,7 @@ class App extends Component {
               symbol={currenciesSymbols[target]}
               balance={balance[target]}
               value={inputValues[target]}
-              onChange={value => changeInput({ [target]: value })}
+              onChange={changeTarget}
             />
             <ExchangeButton
               onClick={exchange}

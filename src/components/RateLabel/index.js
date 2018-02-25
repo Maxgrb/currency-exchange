@@ -8,7 +8,7 @@ import styles from './styles.css';
 const RateLabel = ({ sourceSymbol, targetSymbol, rate }) => (
   <div className={styles.rateLabel}>
     <div className={styles.rateLabelInner}>
-      {`${sourceSymbol}1 = ${targetSymbol}${rate}`}
+      {`${sourceSymbol}1 = ${targetSymbol}${rate.toFixed(2)}`}
     </div>
   </div>
 );
