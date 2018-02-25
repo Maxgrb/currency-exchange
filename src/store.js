@@ -11,6 +11,7 @@ const actionTypes = {
   RATES_REQUEST: 'App/RATES_REQUEST',
   RATES_SUCCESS: 'App/RATES_SUCCESS',
   RATES_FAILURE: 'App/RATES_FAILURE',
+  ERROR: 'App/ERROR',
   VALUE_CHANGE: 'App/VALUE_CHANGE',
   CURRENCY_CHANGE: 'App/CURRENCY_CHANGE',
   EXCHANGE: 'App/EXCHANGE',
@@ -18,7 +19,7 @@ const actionTypes = {
 
 const initialState = {
   isRequest: false,
-  error: undefined,
+  isError: false,
   rates: {
     [currencies.GBP]: 1.0,
     [currencies.EUR]: 1.0,
@@ -43,7 +44,11 @@ export const actions = {
     type: actionTypes.RATES_REQUEST,
   }),
 
-  changeValue: payload => ({
+  handleError: () => ({
+    type: actionTypes.ERROR,
+  }),
+
+  changeInput: payload => ({
     type: actionTypes.VALUE_CHANGE,
     payload,
   }),
@@ -63,7 +68,7 @@ export const reducers = (state = initialState, action) => {
       return {
         ...state,
         isRequest: true,
-        error: undefined,
+        isError: false,
       };
 
     case actionTypes.RATES_SUCCESS:
@@ -77,7 +82,13 @@ export const reducers = (state = initialState, action) => {
       return {
         ...state,
         isRequest: false,
-        error: action.error,
+        isError: action.error,
+      };
+
+    case actionTypes.ERROR:
+      return {
+        ...state,
+        isError: true,
       };
 
     case actionTypes.VALUE_CHANGE:
@@ -114,4 +125,3 @@ export default createStore(
   reducers,
   composeEnhancers(applyMiddleware(thunk)),
 );
-

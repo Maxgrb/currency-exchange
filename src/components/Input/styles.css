@@ -4,4 +4,33 @@
 
 .input {
   display: block;
+  white-space: nowrap;
+  padding: 50px 0;
+
+  &::after {
+    content: '';
+    clear: both;
+  }
+
+  &Name {
+    font-size: 2em;
+    font-weight: 300;
+    user-select: none;
+  }
+
+  &Balance {
+    margin-top: 10px;
+    font-size: 0.75em;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  input {
+    float: right;
+    font-size: 32px;
+    font-weight: 300;
+    padding: 0;
+    margin-left: auto;
+    text-align: right;
+  }
 }

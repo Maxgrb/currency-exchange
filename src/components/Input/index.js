@@ -3,17 +3,22 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatCurrency } from '../../utils';
 import styles from './styles.css';
 
 const Input = props => (
   <div className={styles.input}>
-    {props.name}
-    {`${props.balance} ${props.symbol}`}
     <input
       value={props.value}
       onChange={e => props.onChange(e.target.value)}
-      maxLength={100}
+      maxLength={10}
     />
+    <div className={styles.inputName}>
+      {props.name}
+    </div>
+    <div className={styles.inputBalance}>
+      {`Balance: ${props.symbol}`}&thinsp;{formatCurrency(props.balance)}
+    </div>
   </div>
 );
 
