@@ -10,6 +10,7 @@
     position: relative;
     display: inline-block;
     height: 32px;
+    min-width: 100px;
     line-height: 32px;
     padding: 0 10px;
     font-size: 0.75em;

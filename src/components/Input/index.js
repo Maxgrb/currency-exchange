@@ -20,27 +20,30 @@ const handleInput = onChange => (e) => {
 
 
 /* eslint-disable jsx-a11y/no-autofocus */
-const Input = props => (
-  <div
-    className={`${styles.input} ${props.isTarget ? styles.inputTarget : ''}`}
-  >
-    <input
-      type="number"
-      step="0.01"
-      autoFocus={!props.isTarget}
-      value={props.value}
-      onChange={handleInput(props.onChangeValue)}
-    />
-    <Dropdown
-      current={props.currency}
-      options={currencies}
-      onChange={props.onChangeCurrency}
-    />
-    <div className={styles.inputBalance}>
-      {`Balance: ${currenciesSymbols[props.currency]}`}&thinsp;{props.balance.toLocaleString()}
+const Input = (props) => {
+  const mainStyle = `${styles.input} ${props.isTarget ? styles.inputTarget : ''}`;
+  const balanceStyle = `${styles.inputBalance} ${!props.isTarget && props.value > props.balance ? styles.warn : ''}`;
+
+  return (
+    <div className={mainStyle}>
+      <input
+        type="number"
+        step="0.01"
+        autoFocus={!props.isTarget}
+        value={props.value}
+        onChange={handleInput(props.onChangeValue)}
+      />
+      <Dropdown
+        current={props.currency}
+        options={currencies}
+        onChange={props.onChangeCurrency}
+      />
+      <div className={balanceStyle} >
+        {`Balance: ${currenciesSymbols[props.currency]}`}&thinsp;{props.balance.toLocaleString()}
+      </div>
     </div>
-  </div >
-);
+  );
+};
 /* eslint-enable jsx-a11y/no-autofocus */
 
 Input.propTypes = {

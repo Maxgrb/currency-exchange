@@ -79,6 +79,7 @@ class App extends Component {
               onChangeCurrency={changeSourceCurrency}
             />
             <RateLabel
+              isLoading={isRequest}
               sourceSymbol={currenciesSymbols[source]}
               targetSymbol={currenciesSymbols[target]}
               rate={rates && rates[target]}

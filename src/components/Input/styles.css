@@ -19,6 +19,10 @@
     color: rgba(0, 0, 0, 0.4);
   }
 
+  &Balance.warn {
+    color: #eb028c;
+  }
+
   input {
     z-index: 2;
     position: relative;

@@ -33,8 +33,7 @@ module.exports = {
 
   output: {
     path: distPath,
-    publicPath: '/',
-    filename: 'js/bundle.[hash:6].js',
+    filename: 'bundle.[hash:6].js',
   },
 
   module: {

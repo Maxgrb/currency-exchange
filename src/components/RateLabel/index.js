@@ -5,10 +5,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.css';
 
-const RateLabel = ({ sourceSymbol, targetSymbol, rate }) => (
+const RateLabel = props => (
   <div className={styles.rateLabel}>
     <div className={styles.rateLabelInner}>
-      {`${sourceSymbol}1 = ${targetSymbol}${rate.toFixed(2)}`}
+      {`${props.sourceSymbol}1 = ${props.targetSymbol}${props.rate.toFixed(2)}`}
     </div>
   </div>
 );
