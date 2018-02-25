@@ -3,23 +3,29 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatCurrency } from '../../utils';
 import styles from './styles.css';
 
+const handleInput = callback => (e) => {
+  const num = parseFloat(e.target.value).toFixed(2);
+  return Number.isNaN(num) && callback(num);
+};
+
 const Input = props => (
-  <div className={styles.input}>
+  <div
+    className={`${styles.input} ${props.isTarget ? styles.inputTarget : ''}`}
+  >
     <input
       value={props.value}
-      onChange={e => props.onChange(e.target.value)}
+      onChange={handleInput(props.onChange)}
       maxLength={10}
     />
     <div className={styles.inputName}>
       {props.name}
     </div>
     <div className={styles.inputBalance}>
-      {`Balance: ${props.symbol}`}&thinsp;{formatCurrency(props.balance)}
+      {`Balance: ${props.symbol}`}&thinsp;{props.balance.toLocaleString()}
     </div>
-  </div>
+  </div >
 );
 
 Input.propTypes = {
@@ -28,6 +34,11 @@ Input.propTypes = {
   value: PropTypes.number.isRequired,
   balance: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
+  // isTarget: PropTypes.bool,
+};
+
+Input.defaultProps = {
+  // isTarget: false,
 };
 
 export default Input;

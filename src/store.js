@@ -6,6 +6,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { currencies } from './constants';
+import getRates from './services';
 
 const actionTypes = {
   RATES_REQUEST: 'App/RATES_REQUEST',
@@ -20,11 +21,6 @@ const actionTypes = {
 const initialState = {
   isRequest: false,
   isError: false,
-  rates: {
-    [currencies.GBP]: 1.0,
-    [currencies.EUR]: 1.0,
-    [currencies.USD]: 1.0,
-  },
   balance: {
     [currencies.GBP]: 15000,
     [currencies.EUR]: 340,
@@ -35,14 +31,23 @@ const initialState = {
     [currencies.EUR]: 0,
     [currencies.USD]: 0,
   },
-  inputFrom: currencies.GBP,
-  inputTo: currencies.EUR,
+  inputSource: currencies.GBP,
+  inputTarget: currencies.EUR,
 };
 
 export const actions = {
-  loadRates: () => ({
-    type: actionTypes.RATES_REQUEST,
-  }),
+  fetchRates: () => (dispatch, getState) => {
+    const { inputSource } = getState();
+    dispatch({ type: actionTypes.RATES_REQUEST });
+    return getRates(inputSource)
+      .then(rates => dispatch({
+        type: actionTypes.RATES_SUCCESS,
+        rates,
+      }))
+      .catch(() => dispatch({
+        type: actionTypes.RATES_FAILURE,
+      }));
+  },
 
   handleError: () => ({
     type: actionTypes.ERROR,
@@ -75,14 +80,14 @@ export const reducers = (state = initialState, action) => {
       return {
         ...state,
         rates: action.rates,
-        isRequest: true,
+        isRequest: false,
       };
 
     case actionTypes.RATES_FAILURE:
       return {
         ...state,
         isRequest: false,
-        isError: action.error,
+        isError: true,
       };
 
     case actionTypes.ERROR:

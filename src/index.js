@@ -13,18 +13,30 @@ import styles from './styles.css';
 
 class App extends Component {
   componentDidMount() {
-    this.props.loadRates();
+    this.update();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.requestInterval);
   }
 
   componentDidCatch() {
     this.props.handleError();
   }
 
+  update = () => {
+    if (!this.props.isRequest) {
+      this.props.fetchRates();
+    }
+    this.requestInterval = setInterval(this.update, 10000);
+  }
+
   render() {
     const {
       isError,
-      inputFrom: from,
-      inputTo: to,
+      inputSource: source,
+      inputTarget: target,
+      rates,
       balance,
       inputValues,
       changeInput,
@@ -32,8 +44,8 @@ class App extends Component {
     } = this.props;
 
     const isButtonDisabled = (
-      inputValues[from] === 0 ||
-      inputValues[to] === 0
+      inputValues[source] === 0 ||
+      inputValues[target] === 0
     );
 
     return (
@@ -43,19 +55,24 @@ class App extends Component {
           :
           <Fragment>
             <Input
-              name={currencies[from]}
-              symbol={currenciesSymbols[from]}
-              balance={balance[from]}
-              value={inputValues[from]}
-              onChange={value => changeInput({ [from]: value })}
+              name={currencies[source]}
+              symbol={currenciesSymbols[source]}
+              balance={balance[source]}
+              value={inputValues[source]}
+              onChange={value => changeInput({ [source]: value })}
             />
-            <RateLabel />
+            <RateLabel
+              sourceSymbol={currenciesSymbols[source]}
+              targetSymbol={currenciesSymbols[target]}
+              rate={rates && rates[target]}
+            />
             <Input
-              name={currencies[to]}
-              symbol={currenciesSymbols[to]}
-              balance={balance[to]}
-              value={inputValues[to]}
-              onChange={value => changeInput({ [to]: value })}
+              isTarget
+              name={currencies[target]}
+              symbol={currenciesSymbols[target]}
+              balance={balance[target]}
+              value={inputValues[target]}
+              onChange={value => changeInput({ [target]: value })}
             />
             <ExchangeButton
               onClick={exchange}

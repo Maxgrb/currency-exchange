@@ -37,8 +37,6 @@ $font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", O
 .app {
   margin: auto;
   width: 100%;
-  max-width: 520px;
+  max-width: 480px;
   min-width: 320px;
-  border-radius: 30px;
-  background-color: white;
 }

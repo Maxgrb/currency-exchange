@@ -3,31 +3,20 @@
  */
 .rateLabel {
   display: block;
-  position: relative;
   text-align: center;
-
-  &::before {
-    content: '';
-    z-index: 1;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    height: 1px;
-    width: 100%;
-    border-bottom: 1px solid #ddd;
-  }
 
   &Inner {
     z-index: 2;
     position: relative;
     display: inline-block;
-    height: 24px;
-    line-height: 24px;
+    height: 32px;
+    line-height: 32px;
     padding: 0 10px;
     font-size: 0.75em;
     color: #0174eb;
-    border: 1px solid #ddd;
-    border-radius: 12px;
+    border: 1px solid #eee;
+    border-radius: 16px;
     background-color: white;
+    white-space: nowrap;
   }
 }
