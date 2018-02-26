@@ -1,6 +1,6 @@
 /**
  * Redux stuff
- * Contains actions types, actions, reducers, and store object with thunk and debug tool.
+ * Contains actions types, reducers, and store object with thunk and debug tool.
  * We put all together into the single file because of small state of the app.
  */
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -73,16 +73,14 @@ export const reducers = (state = initialState, action) => {
       return {
         ...state,
         source: action.source,
-        sourceValue:
-          Number((state.targetValue * state.rates[action.source]).toFixed(2)),
+        sourceValue: Number((state.targetValue * state.rates[action.source]).toFixed(2)),
       };
 
     case types.TARGET_CURRENCY_CHANGE:
       return {
         ...state,
         target: action.target,
-        targetValue:
-          Number((state.sourceValue * state.rates[action.target]).toFixed(2)),
+        targetValue: Number((state.sourceValue * state.rates[action.target]).toFixed(2)),
       };
 
     case types.EXCHANGE:

@@ -10,27 +10,32 @@ import styles from './styles.css';
 const handleInput = onChange => (e) => {
   const { value } = e.target;
 
-  if (!value) {
+  const num = value.replace(/\+|-/ig, '');
+
+  if (!num) {
     return onChange(0);
   }
 
-  const num = parseFloat(value);
-  return !Number.isNaN(num) ? onChange(num) : undefined;
-};
+  if (num.match('^[0-9]{1,9}([.][0-9]{1,2})?$')) {
+    return onChange(parseFloat(num));
+  }
 
+  return undefined;
+};
 
 /* eslint-disable jsx-a11y/no-autofocus */
 const Input = (props) => {
-  const mainStyle = `${styles.input} ${props.isTarget ? styles.target : ''}`;
+  const className = `${styles.input} ${props.isTarget ? styles.target : ''}`;
+  const value = `${props.isTarget ? '+' : '-'}${props.value}`;
 
   return (
-    <div className={mainStyle}>
+    <div className={className}>
       <input
-        type="number"
-        step="0.01"
+        type="text"
         autoFocus={!props.isTarget}
-        value={props.value}
-        onChange={handleInput(props.onChangeValue)}
+        value={value}
+        onFocus={e => e.target.select()}
+        onChange={handleInput(props.onChangeValue, value)}
       />
       <Dropdown
         current={props.currency}
